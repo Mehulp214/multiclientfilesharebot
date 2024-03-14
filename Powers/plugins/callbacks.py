@@ -1,12 +1,10 @@
-import asyncio
-
-from pyrogram import Client, filters
+from pyrogram import Client, ContinuePropagation, filters
 from pyrogram.types import CallbackQuery
 from pyrogram.types import InlineKeyboardButton as IKB
 from pyrogram.types import InlineKeyboardMarkup as IKM
 
-from Powers.core import app
 from Powers.database.clients_db import CLIENTS
+from Powers.database.forcesub_db import FSUBS
 from Powers.functions.clients_extra import start_particular, stop_particular
 from Powers.functions.kb_helpers import get_yes_no_kb
 from Powers.plugins import *
@@ -35,6 +33,30 @@ async def get_type_data(c: Client, q: CallbackQuery):
         await q.answer('Cancelled', True)
         await q.message.delete()
 
+
+
+@Client.on_callback_query(filters.regex(r"^yes_"))
+async def yes_no_callbacks(c: Client, q: CallbackQuery):
+    data = q.data.split("_")
+
+    if data[0] == "yes":
+        fsub = FSUBS()
+        if data[1] == "change":
+            await q.answer("Changing fsub type...")
+            c_id = int(data[-1])
+            type_ = data[-2]
+            fsub.update_fsub_type(c_id, type_, c.me.id)
+            await q.edit_message_text(f"Changed fsub type to {type_} of chat {c_id}")
+            return
+        else:
+            await q.answer("Removing chat from force subs")
+            c_id = int(data[-1])
+            fsub.remove_fsub(c_id)
+            await q.edit_message_text(f"Removed {c_id} from force subscribe")
+            return
+
+    else:
+        raise ContinuePropagation
 
 @Client.on_callback_query(filters.regex(r"^(delete:|delete_all:|stop:|stop_all:|yes:|no:|start:)"))
 async def bot_related_datas(_, q: CallbackQuery):
