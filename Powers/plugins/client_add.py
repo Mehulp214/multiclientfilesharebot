@@ -1,6 +1,4 @@
 from pyrogram import filters, idle
-from pyrogram.types import InlineKeyboardButton as IKB
-from pyrogram.types import InlineKeyboardMarkup as IKM
 from pyrogram.types import Message
 from pyromod import Client
 from pyromod.exceptions import ListenerTimeout
@@ -8,32 +6,19 @@ from pyromod.exceptions import ListenerTimeout
 from Powers import LOGGER
 from Powers.core import app
 from Powers.database.clients_db import CLIENTS
-from Powers.functions.decorators import start_in_private
+from Powers.functions.decorators import bot_owner_filt, start_in_private
 from Powers.vars import API_HASH, API_ID
 
 
 @Client.on_message(filters.command("deployown"))
 @start_in_private
 async def get_deploy_help(c: Client, m: Message):
-    if c.is_main:
-        txt = "You want to deploy your own bot??\nJust type /deploymybot to deploy one of your own"
-        kb = None
-    else:
-        txt = f"You can deploy your own bot by starting @{app.main_bot.me.username} and then type `/deploymybot`"
-        kb = IKM(
-            [
-                [
-                    IKB("Main bot",
-                        url=f"t.me/{app.main_bot.me.username}?start=start")
-                ]
-            ]
-        )
-
-    await m.reply_text(txt, reply_markup=kb)
+    txt = "You want to deploy your own bot??\nJust type /deploymybot to deploy one of your own\nNote: Only bot owner and sudoers can deploybots"
+    await m.reply_text(txt)
     return
 
 
-@Client.on_message(filters.command("deploymybot"))
+@Client.on_message(filters.command("deploymybot") & bot_owner_filt)
 @start_in_private
 async def deploying_my_own(c: Client, m: Message):
     if not c.is_main:
