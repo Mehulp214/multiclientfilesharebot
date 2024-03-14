@@ -13,7 +13,7 @@ from Powers.vars import API_HASH, API_ID
 @Client.on_message(filters.command("deployown"))
 @start_in_private
 async def get_deploy_help(c: Client, m: Message):
-    txt = "You want to deploy your own bot??\nJust type /deploymybot to deploy one of your own\nNote: Only bot owner and sudoers can deploybots"
+    txt = "This bot was Made Using File share bot, We hope you will like it contact admins for more informantion."
     await m.reply_text(txt)
     return
 
