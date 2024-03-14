@@ -1,0 +1,70 @@
+{
+    "name": "File_share",
+    "description": "A file share bot",
+    "logo" : "https://te.legra.ph/file/633bd27c1607fe98920b6.jpg",
+    "keywords": [
+      "telegram bot",
+      "file_share_bot",
+      "gojo-bots"
+    ],
+    "env": {
+      "BOT_TOKEN": {
+        "description": "Your telegram bot token, get from @Botfather in telegram.",
+        "required": true,
+        "value": ""
+      },
+      "API_ID": {
+        "description": "Get API_ID from my.telegram.org, used for pyrogram base.",
+        "required": true,
+        "value": ""
+      },
+      "API_HASH": {
+        "description": "Get API_HASH from my.telegram.org, used for pyrogram base.",
+        "required": true,
+        "value": ""
+      },
+      "DB_URI": {
+        "description": "Your MongoDB connection string.",
+        "required": true,
+        "value": ""
+      },
+      "DB_NAME": {
+        "description": "Your MongoDB database name.",
+        "required": false,
+        "value": ""
+      },
+      "OWNER_ID": {
+        "description": "Your user ID as an integer.",
+        "required": false,
+        "value": "1344569458"
+      },
+      "SUDO": {
+        "description": "A space-separated list of user IDs who you want to assign as sudo users.",
+        "required": false,
+        "value": ""
+      },
+      "DB_CHANNEL": {
+        "description": "Database channel where you will store files",
+        "required": true,
+        "value": ""
+      },
+      "REQ_FSUB": {
+        "description": "Space seprated values of chat id. It will create join request.",
+        "required": false,
+        "value": ""
+      },
+      "FSUB_CHANNEL": {
+        "description": "Space seprated values of chat id",
+        "required": false,
+        "value": ""
+      }
+    },
+    "buildpacks": [
+      {
+        "url": "https://github.com/chrismytton/heroku-buildpack-jq"
+      },
+      {
+        "url": "heroku/python"
+      }
+    ]
+}
