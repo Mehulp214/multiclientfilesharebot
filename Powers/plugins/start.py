@@ -18,7 +18,7 @@ async def is_bot_start(c: Client, m: Message):
                 IKB("Help", "get.help"),
             ],
             [
-                IKB("Restart", "restart_bot")
+                IKB("OWNER", "get.help")
             ]
         ]
     )
@@ -70,11 +70,11 @@ async def is_bot_start(c: Client, m: Message):
 
 #addedbymehul
 
-@app.on_callback_query(filters.regex(r"^restart_bot$"))
-async def restart_bot(c: Client, cb: CallbackQuery):
-    await cb.answer("Restarting the bot...")
-    await c.send_message(chat_id=cb.message.chat.id, text="Bot is restarting now.")
-#added by mehul
+# @app.on_callback_query(filters.regex(r"^restart_bot$"))
+# async def restart_bot(c: Client, cb: CallbackQuery):
+#     await cb.answer("Restarting the bot...")
+#     await c.send_message(chat_id=cb.message.chat.id, text="Bot is restarting now.")
+# #added by mehul
 
 @Client.on_message(filters.command("help"))
 @start_in_private
